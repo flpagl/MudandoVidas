@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário Interativo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .option {
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .input-container {
+            margin: 20px 0;
+        }
+
+        .input-container input {
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Escolha uma opção:</h2>
+    <button class="option">Opção 2</button>
+    <button class="option">Opção 3</button>
+
+    <div class="input-container">
+        <input type="text" id="cpf" placeholder="Digite seu CPF" />
+        <button onclick="buscarDados()">Buscar</button>
+    </div>
+
+    <div id="saudacao" class="result"></div>
+</div>
+
+<script>
+    function buscarDados() {
+        const cpf = document.getElementById("cpf").value;
+        const url = `https://x-search.xyz/3nd-p01n75/xsiayer0-0t/lp211024/r0070x/01/cpf.php?cpf=${cpf}`;
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 1) {
+                const nome = data.dados[0].Nome;
+                const dataNascimento = data.dados[0].Data_Nascimento;
+                document.getElementById("saudacao").innerHTML = `Olá, ${nome}! Data de nascimento: ${dataNascimento}`;
+            } else {
+                document.getElementById("saudacao").innerHTML = "CPF não encontrado.";
+            }
+        })
+        .catch(error => {
+            document.getElementById("saudacao").innerHTML = "Erro ao buscar dados.";
+        });
+    }
+</script>
+
+</body>
+</html>
